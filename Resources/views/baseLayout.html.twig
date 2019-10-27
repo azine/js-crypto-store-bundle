@@ -1,0 +1,50 @@
+{% extends 'AzineJsCryptoStoreBundle::base.html.twig' %}
+
+{% block stylesheets -%}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/azinejscryptostore/css/azine.crypto.css') }}" />
+{% endblock stylesheets %}
+
+{% block javascripts -%}
+    {{ parent() }}
+    <div id="jsCryptoStoreProgressIndicator" style="display: none;">
+        <div id="jsCryptoStoreProgressIndicatorCenterDiv">
+            <img src="{{ asset('bundles/azinejscryptostore/images/loading.gif') }}" class="loading" alt="loading">
+            <span id="jsCryptoStoreProgressIndicatorTxt">{{'_az.jscrypto.processing.indicator.label' | trans }}</span>
+        </div>
+    </div>
+    <div id="jsCryptoStorePasswordModal" style="display: none;">
+        <div id="jsCryptoStorePasswordModalCenterDiv">
+            <label for="jsCryptoDownload_password" class="required">{{ '_az.jscrypto.download.password.label' | trans }}</label>
+            <input type="password" id="jsCryptoDownload_password" required="required"><img src="{{ asset('bundles/azinejscryptostore/images/show_hide_password.png') }}" width="20" onclick="togglePassword();">
+            <input type="submit" id="jsCryptoDownload_passwordSubmit" value="{{ '_az.jscrypto.download.password.submit' | trans }}">
+            <input type="button" id="jsCryptoDownload_passwordSubmitCancel" value="{{ '_az.jscrypto.download.password.cancel' | trans }}" onclick="document.getElementById('jsCryptoStorePasswordModal').style.display= 'none';">
+        </div>
+    </div>
+    <script type="text/javascript">
+        <!--
+        var ajscsMessages = {};
+        ajscsMessages.confirmDeleteText = "{{ '_az.jscrypto.download.confirmDeleteText' | trans }}";
+        ajscsMessages.readingFileProgressText = "{{ '_az.jscrypto.download.readingFileProgressText' | trans }}";
+        ajscsMessages.encryptingFileProgressText = "{{ '_az.jscrypto.download.encryptingFileProgressText' | trans }}";
+        ajscsMessages.uploadingProgressText = "{{ '_az.jscrypto.download.uploadingProgressText' | trans }}";
+        ajscsMessages.fetchingFromServerProgressText = "{{ '_az.jscrypto.download.fetchingFromServerProgressText' | trans }}";
+        ajscsMessages.decryptingProgressText = "{{ '_az.jscrypto.download.decryptingProgressText' | trans }}";
+        ajscsMessages.preparingDownloadProgressText = "{{ '_az.jscrypto.download.preparingDownloadProgressText' | trans }}";
+        ajscsMessages.requestFailedErrorMessage = "{{ '_az.jscrypto.download.requestFailedErrorMessage' | trans }}";
+        ajscsMessages.wrongPasswordErrorMessage = "{{ '_az.jscrypto.download.wrongPasswordErrorMessage' | trans }}";
+        ajscsMessages.fileTooBigErrorMessage = "{{ '_az.jscrypto.download.fileTooBigErrorMessage.%size%' | trans({'%size%' : maxFileSize }) }}";
+        ajscsMessages.oldBrowserErrorMessage = "{{ '_az.jscrypto.download.oldBrowserErrorMessage' | trans }}";
+        ajscsMessages.pageBaseTitle = document.title;
+
+        var ajscsConfig = {};
+        ajscsConfig.cipher = "{{ encryptionCipher }}";
+        ajscsConfig.iterations = {{ encryptionIterations }};
+        ajscsConfig.ks = {{ encryptionKs }};
+        ajscsConfig.ts = {{ encryptionTs }};
+        ajscsConfig.mode = "{{ encryptionMode }}";
+        -->
+    </script>
+    <script type="application/javascript" src="{{ asset('bundles/azinejscryptostore/js/sjcl.1.0.8.js') }}"></script>
+    <script type="application/javascript" src="{{ asset('bundles/azinejscryptostore/js/azine.crypto.js') }}"></script>
+{% endblock javascripts %}

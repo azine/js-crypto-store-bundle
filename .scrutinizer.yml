@@ -1,0 +1,17 @@
+# default-configurations
+imports:
+    - javascript
+    - php
+
+tools:
+    external_code_coverage:
+        timeout: 1200 # Timeout 20min in seconds.
+
+    php_cs_fixer: true
+
+build:
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run

@@ -1,0 +1,26 @@
+Azine\JsCryptoStoreBundle\Entity\EncryptedFile:
+    type: entity
+    table: azine_js_encrypted_file
+    repositoryClass: Azine\JsCryptoStoreBundle\Entity\Repositories\EncryptedFileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        # submitted
+        file:        { type: string, length: 255, nullable: false }  # the encrypted file content
+        expiry:      { type: datetime,            nullable: false }  # date when the file is due to be deleted
+        description: { type: string, length: 255, nullable: true }   # short description of the file-content
+        fileName:    { type: string, length: 255, nullable: false }  # original name of the encrypted file
+        mimeType:    { type: string, length: 255, nullable: false }  # mimeType of the encrypted file
+
+        # generated
+        groupToken:  { type: string, length: 255, nullable: false}  # non-guessable token to identify a group of files.
+        token:       { type: string, length: 255, nullable: false}  # non-guessable token to identify the file.
+        created:     { type: datetime,            nullable: false}  # date when the file was uploaded
+        owner_id:    { type: integer,             nullable: true}   # file-owner, if any
+
+    lifecycleCallbacks:
+        prePersist: [setCreatedValue]

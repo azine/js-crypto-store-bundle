@@ -1,0 +1,22 @@
+##################################################################
+## Routes
+##################################################################
+# dashboard
+azine_jscryptostore_dashboard:
+    path:  /dashboard
+    defaults: { _controller: "AzineJsCryptoStoreBundle:EncryptedFile:dashboard" }
+    methods:  [GET]
+
+# download file page
+azine_jscryptostore_download:
+    path:  /download/{groupToken}/{token}
+    defaults: { _controller: "AzineJsCryptoStoreBundle:EncryptedFile:download", token: null }
+    methods:  [GET]
+
+# upload/download file
+azine_jscryptostore_file:
+    path:  /file
+    defaults: { _controller: "AzineJsCryptoStoreBundle:EncryptedFile:file" }
+    methods:  [POST, DELETE]
+
+

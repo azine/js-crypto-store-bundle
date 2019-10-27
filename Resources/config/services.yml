@@ -1,0 +1,35 @@
+parameters:
+
+services:
+
+###################################################################
+## Commands
+###################################################################
+    azine.jscryptostore_cleanup_command:
+        class: Azine\JsCryptoStoreBundle\Command\RemoveExpiredFilesCommand
+        arguments:
+            $managerRegistry:    '@doctrine'
+            $logger:             '@logger'
+        tags:
+            - { name: 'console.command', command: 'js-crypto-store:remove-expired' }
+
+    Azine\JsCryptoStoreBundle\Service\DefaultOwnerProvider:
+        class: Azine\JsCryptoStoreBundle\Service\DefaultOwnerProvider
+        arguments:
+            $tokenStorage: '@security.token_storage'
+
+    Azine\JsCryptoStoreBundle\Controller\EncryptedFileController:
+        class: Azine\JsCryptoStoreBundle\Controller\EncryptedFileController
+        arguments:
+            $ownerProvider: "@azine_js_crypto_store.ownerProvider"
+            $encryptionCipher: "%azine_js_crypto_store.encryptionCipher%"
+            $encryptionIterations: "%azine_js_crypto_store.encryptionIterations%"
+            $encryptionKs: "%azine_js_crypto_store.encryptionKs%"
+            $encryptionTs: "%azine_js_crypto_store.encryptionTs%"
+            $encryptionMode: "%azine_js_crypto_store.encryptionMode%"
+            $maxFileSize: "%azine_js_crypto_store.maxFileSize%"
+            $defaultLifeTime: "%azine_js_crypto_store.defaultLifeTime%"
+        calls:
+            - [setContainer, ["@service_container"]]
+        public: true
+
