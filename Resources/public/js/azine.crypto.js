@@ -243,6 +243,8 @@ ajscs.clearFormAddFileToList = function(form, response){
 
     // clear form
     form.reset();
+    document.getElementById("jsCryptoUpload_password").style.backgroundColor = '';
+
 
     // show file/download list
     document.getElementById("jsCryptoFileListDiv").style.display = "inherit";
@@ -370,4 +372,40 @@ ajscs.updateDescription = function () {
         fileName = fileName.replace(/(_|-)/g," ");
         descriptionField.value = fileName;
     }
+}
+
+ajscs.validatePassword = function(){
+    var passwd = document.getElementById("jsCryptoUpload_password").value;
+
+    if(passwd.length == 0) {
+        document.getElementById("jsCryptoUpload_password").style.backgroundColor = "";
+        return;
+    }
+
+    var strength = 0;
+
+    // check length
+    if(passwd.length < 8)  strength = -50;
+    if(passwd.length >= 8) strength = 15;
+    if(passwd.length >= 12) strength += 15
+    if(passwd.length >= 16) strength += 15
+
+    // contains special chars
+    if(/([+,\-!%&@#$^*?_~£:;.])/.test(passwd)) strength += 25;
+
+    // contains uppercase and lowercase
+    if(/([A-Z])/.test(passwd) && /([a-z])/.test(passwd)) strength += 25;
+
+    // contains numbers
+    if(/([0-9])/.test(passwd)) strength += 25;
+
+    var colorStrong = "#7ac075";
+    var colorMedium = "#ffb846";
+    var colorWeak = "#FF6D5C";
+    var strengthColor = colorWeak;
+
+    if(strength >= 50) strengthColor = colorMedium;
+    if(strength >= 80) strengthColor = colorStrong;
+
+    document.getElementById("jsCryptoUpload_password").style.backgroundColor = strengthColor;
 }

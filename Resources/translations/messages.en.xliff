@@ -138,6 +138,10 @@
         <source>_az.jscrypto.upload.password.label</source>
         <target>Password</target>
       </trans-unit>
+      <trans-unit id="0c12991e703e42b3a4e300dca4c5e49215b5139e" resname="_az.jscrypto.upload.password.requirements">
+        <source>_az.jscrypto.upload.password.requirements</source>
+        <target>The password must be at least 8 characters long and should contain numbers, upper- and lowercase letters and special characters.</target>
+      </trans-unit>
       <trans-unit id="05bbb9d2e56d993af47eb22aa3b258cc89c38858" resname="yyyy-mm-dd hh:mm">
         <source>yyyy-mm-dd hh:mm</source>
         <target>yyyy-mm-dd hh:mm</target>
