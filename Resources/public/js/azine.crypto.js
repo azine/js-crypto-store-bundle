@@ -219,8 +219,8 @@ ajscs.askForPassword = function(decryptWithPasswordFunction) {
     // show the password dialog
     ajscs.hideProgressIndicator();
     var previousPassword = "";
-    if(ajscsMessages.password != undefined){
-        previousPassword = ajscsMessages.password;
+    if(ajscs.password != undefined){
+        previousPassword = ajscs.password;
     }
     document.getElementById("jsCryptoDownload_password").value = previousPassword;
     document.getElementById("jsCryptoStorePasswordModal").style.display = "";
