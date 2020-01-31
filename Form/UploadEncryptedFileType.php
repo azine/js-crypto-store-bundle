@@ -21,7 +21,7 @@ class UploadEncryptedFileType extends AbstractType
         $builder->add('file', FileType::class, array('label' => '_az.jscrypto.upload.file.label', 'required' => true));
         $builder->add('description', TextType::class, array('label' => '_az.jscrypto.upload.description.label', 'required' => true));
         $builder->add('expiry', DateTimeType::class, array('widget' => 'single_text', 'attr' => array('placeholder' => 'yyyy-mm-dd hh:mm'), 'label' => '_az.jscrypto.upload.expiry.label', 'required' => false));
-        $builder->add('password', PasswordType::class, array('label' => '_az.jscrypto.upload.password.label', 'required' => true, 'attr' => array('title' => '_az.jscrypto.upload.password.requirements', 'onkeyup' => 'ajscs.validatePassword();', 'pattern' => ".{8,}")));
+        $builder->add('password', PasswordType::class, array('label' => '_az.jscrypto.upload.password.label', 'required' => true, 'attr' => array('title' => '_az.jscrypto.upload.password.requirements', 'onkeyup' => 'ajscs.validatePassword();', 'pattern' => '.{8,}')));
         $builder->add('groupToken', TextType::class, array('label' => '_az.jscrypto.upload.groupToken.label', 'required' => false));
         $builder->add('upload', SubmitType::class, array('label' => '_az.jscrypto.upload.button.label', 'attr' => array('class' => 'button')));
     }
