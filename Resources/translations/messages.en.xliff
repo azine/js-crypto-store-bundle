@@ -8,7 +8,7 @@
     <body>
       <trans-unit id="6ce65b416a51b705d5f17bf788940f84e95d467d" resname="_az.jscrypto.dashboard.pageTitle">
         <source>_az.jscrypto.dashboard.pageTitle</source>
-        <target>Securely encrypted online file storage</target>
+        <target>CryptoVault: Securely encrypted online file storage</target>
       </trans-unit>
       <trans-unit id="bde33302eab9b9a87068a8aecdf306c69d717d8a" resname="_az.jscrypto.delete.link">
         <source>_az.jscrypto.delete.link</source>
