@@ -5,9 +5,10 @@ php:
   - 7.2
 
 env:
-    - SYMFONY_VERSION=lts:^2
-    - SYMFONY_VERSION=lts:^3
-    - SYMFONY_VERSION=flex:^1
+  - SYMFONY_VERSION=lts:^2
+  - SYMFONY_VERSION=lts:^3
+  - SYMFONY_VERSION=flex:^1
+  - SYMFONY_VERSION=lts:^4
 
 
 matrix:
@@ -24,11 +25,9 @@ matrix:
   allow_failures:
     - env: SYMFONY_VERSION=lts:^4
 
-sudo: false
-
 cache:
   directories:
-  - $HOME/.composer/cache
+    - $HOME/.composer/cache
 
 before_install:
   - mv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
