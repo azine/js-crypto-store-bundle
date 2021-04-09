@@ -4,3 +4,4 @@ composer.lock
 vendor/
 .idea
 Resources/public/files/*
+!Resources/public/files/.gitkeep
