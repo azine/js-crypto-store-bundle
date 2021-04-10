@@ -1,19 +1,23 @@
 {% extends 'AzineJsCryptoStoreBundle::baseLayout.html.twig' %}
 {% block title %}{{ '_az.jscrypto.download.pageTitle' | trans }} ({{ groupToken }}){% endblock %}
 {% block body %}
-    <h1>{{ '_az.jscrypto.download.and.decrypt.heading' | trans }}</h1>
-    {% for downloadForm in downloadForms %}
-        {% set file = files[loop.index0] %}
-        {{ '_az.jscrypto.download.description.label' | trans }}:  {{ file.description }}<br/>
-        {{ '_az.jscrypto.download.expiry.label' | trans }}: {{ file.expiry | date("Y-m-d H:i")}}
-        <br>
-        {{ '_az.jscrypto.download.filename.label' | trans }}: <span class="{{ file.mimeType }}" >{{ file.fileName }}</span>
-        {{ form_start(downloadForm, { 'action' : path('azine_jscryptostore_file'), 'attr' : {
-            'onsubmit' : 'ajscs.downloadAndDeCrypt(event); return false;'
-        } }) }}
-        {{ form_row(downloadForm.token) }}
-        {{ form_row(downloadForm.download) }}
-        {{ form_end(downloadForm) }}
-    {% endfor %}
+    <div>
+        <h1>{{ '_az.jscrypto.download.and.decrypt.heading' | trans }}</h1>
+        {% for downloadForm in downloadForms %}
+            {% set file = files[loop.index0] %}
+            <div>
+            {{ '_az.jscrypto.download.description.label' | trans }}:  {{ file.description }}<br/>
+            {{ '_az.jscrypto.download.expiry.label' | trans }}: {{ file.expiry | date("Y-m-d H:i")}}
+            <br>
+            {{ '_az.jscrypto.download.filename.label' | trans }}: <span class="{{ file.mimeType }}" >{{ file.fileName }}</span>
+            {{ form_start(downloadForm, { 'action' : path('azine_jscryptostore_file'), 'attr' : {
+                'onsubmit' : 'ajscs.downloadAndDeCrypt(event); return false;'
+            } }) }}
+            {{ form_row(downloadForm.token) }}
+            {{ form_row(downloadForm.download) }}
+            {{ form_end(downloadForm) }}
+            </div>
+        {% endfor %}
+    </div>
     <a id="downloadLink" href="#"></a>
 {% endblock %}

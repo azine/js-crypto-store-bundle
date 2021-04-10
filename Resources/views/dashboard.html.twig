@@ -1,64 +1,66 @@
 {% extends 'AzineJsCryptoStoreBundle::baseLayout.html.twig' %}
 {% block title %}{{ '_az.jscrypto.dashboard.pageTitle' | trans}}{% endblock %}
 {% block body %}
-    <h1>{{ '_az.jscrypto.upload.and.encrypt.heading' | trans }}</h1>
-    {{ form_start(uploadForm, { 'action' : path('azine_jscryptostore_file'), 'attr' : {
-        'onsubmit' : 'ajscs.encryptAndUpload(event); return false;',
-        'data-max-file-size' : maxFileSize
-    } }) }}
-    {{ form_row(uploadForm.file, { 'attr' : {'onchange' : 'ajscs.updateTitle(); ajscs.updateDescription(); ' } }) }}
-    {{ form_row(uploadForm.description) }}
-    {{ form_row(uploadForm.expiry) }}
-    {{ form_row(uploadForm.groupToken, { 'attr' : {'list' : 'azineJsCryptoStoreGroupTokenList', 'onchange' : 'ajscs.updateTitle();' } }) }}
-    <datalist id="azineJsCryptoStoreGroupTokenList">
-        {% for groupTokenEntry in groupTokens %}
-            <option value="{{ groupTokenEntry }}" />
-        {% endfor %}
-    </datalist>
+    <div>
+        <h1>{{ '_az.jscrypto.upload.and.encrypt.heading' | trans }}</h1>
+        {{ form_start(uploadForm, { 'action' : path('azine_jscryptostore_file'), 'attr' : {
+            'onsubmit' : 'ajscs.encryptAndUpload(event); return false;',
+            'data-max-file-size' : maxFileSize
+        } }) }}
+        {{ form_row(uploadForm.file, { 'attr' : {'onchange' : 'ajscs.updateTitle(); ajscs.updateDescription(); ' } }) }}
+        {{ form_row(uploadForm.description) }}
+        {{ form_row(uploadForm.expiry) }}
+        {{ form_row(uploadForm.groupToken, { 'attr' : {'list' : 'azineJsCryptoStoreGroupTokenList', 'onchange' : 'ajscs.updateTitle();' } }) }}
+        <datalist id="azineJsCryptoStoreGroupTokenList">
+            {% for groupTokenEntry in groupTokens %}
+                <option value="{{ groupTokenEntry }}" />
+            {% endfor %}
+        </datalist>
 
-    {{ form_row(uploadForm.password) }}
-    {{ form_row(uploadForm.upload) }}
-    {{ form_end(uploadForm) }}
+        {{ form_row(uploadForm.password) }}
+        {{ form_row(uploadForm.upload) }}
+        {{ form_end(uploadForm) }}
 
-    <div id="jsCryptoFileListDiv" style="display:{% if userFiles is defined and userFiles | length > 0 %}{% else %} none{% endif %};">
-        <hr>
-        <h1>{{ '_az.jscrypto.list.of.your.files' | trans }}</h1>
-        {% for groupFiles in userFiles %}
-            <div  id="jsCryptoFileListDiv-{{ groupFiles[0].groupToken }}">
-                <h2><a href="{{ path('azine_jscryptostore_download',{'groupToken': groupFiles[0].groupToken }) }}" target="{{ groupFiles[0].group }}">{{ groupFiles[0].group }}</a></h2>
+        <div id="jsCryptoFileListDiv" style="display:{% if userFiles is defined and userFiles | length > 0 %}{% else %} none{% endif %};">
+            <hr>
+            <h1>{{ '_az.jscrypto.list.of.your.files' | trans }}</h1>
+            {% for groupFiles in userFiles %}
+                <div  id="jsCryptoFileListDiv-{{ groupFiles[0].groupToken }}">
+                    <h2><a href="{{ path('azine_jscryptostore_download',{'groupToken': groupFiles[0].groupToken }) }}" target="{{ groupFiles[0].group }}">{{ groupFiles[0].group }}</a></h2>
+                    <ul>
+                        {% for next in groupFiles -%}
+                            <li id="file-{{ next.token }}">
+                                {{ next.description }} (<span class="{{ next.mimeType }}" >{{ next.fileName }}</span>)<br/>
+                                {{ '_az.jscrypto.list.of.your.files.expiry.label' | trans }}: {{ next.expiry | date("Y-m-d H:i")}}<br/>
+                                <a class="button" href="{{ path('azine_jscryptostore_download',{'groupToken': next.groupToken ,'token' : next.token}) }}" target="token">
+                                    {{ '_az.jscrypto.download.and.decrypt.link' | trans }}
+                                </a>
+                                <a class="button" href="{{ path('azine_jscryptostore_file', {'token' : next.token}) }}" onclick="return ajscs.deleteFile('{{ path('azine_jscryptostore_file', {'token' : next.token}) }}');">
+                                    {{ '_az.jscrypto.delete.link' | trans }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                </div>
+            {% endfor %}
+            <div  id="jsCryptoFileListDiv-groupTokenDummy" style="display: none;">
+                <h2><a href="{{ path('azine_jscryptostore_download',{'groupToken': 'groupTokenDummy' }) }}" target="groupTokenDummy">groupDummy</a></h2>
                 <ul>
-                    {% for next in groupFiles -%}
-                        <li id="file-{{ next.token }}">
-                            {{ next.description }} (<span class="{{ next.mimeType }}" >{{ next.fileName }}</span>)<br/>
-                            {{ '_az.jscrypto.list.of.your.files.expiry.label' | trans }}: {{ next.expiry | date("Y-m-d H:i")}}<br/>
-                            <a class="button" href="{{ path('azine_jscryptostore_download',{'groupToken': next.groupToken ,'token' : next.token}) }}" target="token">
-                                {{ '_az.jscrypto.download.and.decrypt.link' | trans }}
-                            </a>
-                            <a class="button" href="{{ path('azine_jscryptostore_file', {'token' : next.token}) }}" onclick="return ajscs.deleteFile('{{ path('azine_jscryptostore_file', {'token' : next.token}) }}');">
-                                {{ '_az.jscrypto.delete.link' | trans }}
-                            </a>
-                        </li>
-                    {% endfor %}
                 </ul>
                 <hr>
             </div>
-        {% endfor %}
-        <div  id="jsCryptoFileListDiv-groupTokenDummy" style="display: none;">
-            <h2><a href="{{ path('azine_jscryptostore_download',{'groupToken': 'groupTokenDummy' }) }}" target="groupTokenDummy">groupDummy</a></h2>
-            <ul>
-            </ul>
-            <hr>
+            <li id="file-tokenDummy" style="display: none;">
+                %description% (<span class="%mimeType%" >%fileName%</span>)<br/>
+                {{ '_az.jscrypto.list.of.your.files.expiry.label' | trans }}: %expiryDate% <br/>
+                <a class="button" href="{{ path('azine_jscryptostore_download',{'groupToken': 'groupTokenDummy', 'token' : "tokenDummy", }) }}" target="tokenDummy">
+                    {{ '_az.jscrypto.download.and.decrypt.link' | trans }}
+                </a>
+                <a class="button" href="{{ path('azine_jscryptostore_file', {'token' : "tokenDummy"}) }}" onclick="return ajscs.deleteFile('{{ path('azine_jscryptostore_file', {'token' : "tokenDummy"}) }}');">
+                    {{ '_az.jscrypto.delete.link' | trans }}
+                </a>
+            </li>
         </div>
-        <li id="file-tokenDummy" style="display: none;">
-            %description% (<span class="%mimeType%" >%fileName%</span>)<br/>
-            {{ '_az.jscrypto.list.of.your.files.expiry.label' | trans }}: %expiryDate% <br/>
-            <a class="button" href="{{ path('azine_jscryptostore_download',{'groupToken': 'groupTokenDummy', 'token' : "tokenDummy", }) }}" target="tokenDummy">
-                {{ '_az.jscrypto.download.and.decrypt.link' | trans }}
-            </a>
-            <a class="button" href="{{ path('azine_jscryptostore_file', {'token' : "tokenDummy"}) }}" onclick="return ajscs.deleteFile('{{ path('azine_jscryptostore_file', {'token' : "tokenDummy"}) }}');">
-                {{ '_az.jscrypto.delete.link' | trans }}
-            </a>
-        </li>
 
     </div>
 

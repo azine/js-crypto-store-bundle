@@ -16,7 +16,7 @@
     <div id="jsCryptoStorePasswordModal" style="display: none;">
         <div id="jsCryptoStorePasswordModalCenterDiv">
             <label for="jsCryptoDownload_password" class="required">{{ '_az.jscrypto.download.password.label' | trans }}</label>
-            <input type="password" id="jsCryptoDownload_password" required="required"><img src="{{ asset('bundles/azinejscryptostore/images/show_hide_password.png') }}" width="20" onclick="togglePassword();">
+            <input type="password" id="jsCryptoDownload_password" required="required"><img src="{{ asset('bundles/azinejscryptostore/images/show_hide_password.png') }}" width="20" onclick="ajscs.togglePassword();">
             <input type="submit" id="jsCryptoDownload_passwordSubmit" value="{{ '_az.jscrypto.download.password.submit' | trans }}">
             <input type="button" id="jsCryptoDownload_passwordSubmitCancel" value="{{ '_az.jscrypto.download.password.cancel' | trans }}" onclick="document.getElementById('jsCryptoStorePasswordModal').style.display= 'none';">
         </div>
