@@ -50,7 +50,7 @@ class EncryptedFileRepository extends EntityRepository
         $fileGroups = array();
         foreach ($files as $file) {
             $groupToken = $file['groupToken'];
-            $file['group'] = substr($files[0]['groupToken'], 0, strrpos($files[0]['groupToken'], '-'));
+            $file['group'] = substr($file['groupToken'], 0, strrpos($file['groupToken'], '-'));
             if (!array_key_exists($groupToken, $fileGroups)) {
                 $fileGroups[$groupToken] = array();
             }
