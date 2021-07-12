@@ -85,6 +85,19 @@ azine_js_crypto_store:
 
 See https://github.com/bitwiseshiftleft/sjcl/ for valid configuration options for the encryption.
 
+## Customize DateTime-Picker Widget
+To make it easier to select a date & time for the expiry date of the uploaded and encrypted files, you can include a date picker widget via JS.
+
+http://foundation-datepicker.peterbeno.com/ works fine for example. Include its js and css files in your site and add the following snippet to your JS.
+```
+// jquery DateTime-picker widget 
+$("input[type='datetime-local']").fdatepicker({
+    format: 'yyyy-mm-dd hh:ii',
+    disableDblClickSelection: true,
+    pickTime: true
+});
+```
+
 ## Customize Owner Provider
 To be able to share administration of uploaded files among users of a team or company, you can implement you custom logic to return an owner id.
 
