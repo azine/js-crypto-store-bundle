@@ -10,6 +10,7 @@ use Azine\JsCryptoStoreBundle\Service\OwnerProviderInterface;
 use MuBu\DealAnalysisBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -168,6 +169,9 @@ class EncryptedFileController extends Controller
         $groupToken .= '-'.md5($this->ownerProvider->getOwnerId());
         $encryptedFile = new EncryptedFile();
         $storageDirectory = __DIR__.'/../Resources/public/files/';
+        if(!file_exists($storageDirectory) || !is_writable($storageDirectory)){
+            throw new FileException("Directory  ($storageDirectory) does not exist or is not writable for the current user.");
+        }
         $storageFileName = tempnam($storageDirectory, 'encrypted-');
         chmod($storageFileName, 0664);
         file_put_contents($storageFileName, $fileData);
