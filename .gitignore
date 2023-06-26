@@ -3,5 +3,7 @@
 composer.lock
 vendor/
 .idea
-Resources/public/files/*
-!Resources/public/files/.gitkeep
+src/Resources/public/files/*
+!src/Resources/public/files/.gitkeep
+composer.phar
+/.phpunit.result.cache
