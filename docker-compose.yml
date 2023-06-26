@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  apache_js_crypto:
+    image: php:apache
+    container_name: apache_js_crypto
+    volumes:
+      - ./:/var/www/html
+      - ~/.ssh:/root/ssh-config-from-host:ro
+      - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.composer/:/root/.config/composer/
+
+volumes:
+  root_home:
