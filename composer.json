@@ -17,7 +17,7 @@
         "github-domains": ["github.com"]
     },
     "require": {
-        "php": ">7.0",
+        "php": "^8.5.12",
         "symfony/framework-bundle": "^4.4|^5.4|^6.3",
         "symfony/console": "^4.4|^5.4|^6.3",
         "symfony/finder": "^4.4|^5.4|^6.3",

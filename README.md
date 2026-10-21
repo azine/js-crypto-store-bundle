@@ -1,4 +1,6 @@
 # js-crypto-store-bundle
+
+Requires PHP 8.5.12 or newer.
 Symfony Bundle to store files on the server that have been securely encrypted on the client side (browser).
 
 Meta-Data is stored in the database, the file-content is stored on the file-system.
